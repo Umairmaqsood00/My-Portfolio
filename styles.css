@@ -218,6 +218,8 @@ body {
     border: 3px solid var(--primary-color);
     box-shadow: var(--shadow-medium);
     transition: var(--transition-medium);
+    display: block;
+    margin: 0 auto;
 }
 
 .hero-profile-image:hover {
@@ -387,9 +389,11 @@ section {
     height: 300px;
     border-radius: 20px;
     object-fit: cover;
-    border: 2px solid var(--border-color);
+    border: 2px solid var(--primary-color);
     transition: var(--transition-medium);
     box-shadow: var(--shadow-medium);
+    display: block;
+    margin: 0 auto;
 }
 
 .profile-image:hover {
@@ -524,6 +528,42 @@ section {
     .tech-tag {
         font-size: 0.7rem;
         padding: 2px 6px;
+    }
+    
+    .hero-profile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .hero-profile-image {
+        width: 100px;
+        height: 100px;
+        border: 2px solid var(--primary-color);
+        transition: none;
+    }
+    
+    .hero-profile-image:hover {
+        transform: none;
+    }
+    
+    .about-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .profile-image {
+        width: 250px;
+        height: 250px;
+        border: 2px solid var(--primary-color);
+        transition: none;
+    }
+    
+    .profile-image:hover {
+        transform: none;
     }
 }
 
