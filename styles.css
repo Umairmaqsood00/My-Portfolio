@@ -855,6 +855,6 @@ section { padding: 100px 0; }
     border: 2px solid var(--primary-color);
     transition: none;
   }
-  
+
   .hero-profile-image:hover { transform: none; }
 }
