@@ -1,6 +1,6 @@
 # Umair Maqsood - Portfolio Website
 
-A modern, responsive portfolio website showcasing the work and skills of Umair Maqsood - Developer & AI Explorer.
+A modern, responsive portfolio website showcasing the work and skills of Umair Maqsood - Developer & AI Explorer
 
 ## 🌟 Features
 
