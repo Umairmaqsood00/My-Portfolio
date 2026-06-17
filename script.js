@@ -97,32 +97,7 @@ window.addEventListener('scroll', () => {
         }
     });
 });
-
-const animateSkillBars = () => {
-    const skillBars = document.querySelectorAll('.skill-progress');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const progressBar = entry.target;
-                const width = progressBar.style.width;
-                progressBar.style.width = '0%';
-                
-                setTimeout(() => {
-                    progressBar.style.width = width;
-                }, 200);
-                
-                observer.unobserve(progressBar);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    skillBars.forEach(bar => {
-        observer.observe(bar);
-    });
-};
-
-document.addEventListener('DOMContentLoaded', animateSkillBars);
+// Skill progress bar animations removed since portfolio now uses skill tag categories.
 
 const contactForm = document.getElementById('contactForm');
 
