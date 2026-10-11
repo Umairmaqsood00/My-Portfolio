@@ -326,7 +326,7 @@ function OrbStill({ className }: { className: string }) {
           className="absolute inset-[22%] rounded-full bg-[radial-gradient(circle,rgb(150_128_255/0.14),rgb(118_96_230/0.04)_45%,transparent_65%)] blur-2xl"
         />
         <div data-ambient="float" className="absolute inset-0">
-          <Image src="/images/orb-planet.webp" alt="" width={900} height={900} priority className="size-full mix-blend-screen contrast-[1.15]" />
+          <Image src="/images/orb-glow-soft.webp" alt="" width={900} height={900} priority className="size-full mix-blend-screen" />
         </div>
         {DUST.map((d, i) => (
           <span
