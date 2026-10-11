@@ -230,7 +230,7 @@ portfolio/
 │   ├── models/          ring.glb, rocks.glb (Blender) · skeleton-hand.glb (Sketchfab)
 │   ├── textures/        orb-matcap.webp, orb-detail.webp (Blender bakes)
 │   ├── images/          orb-glow-soft.webp (Cycles render), portrait, project shots
-│   └── files/           résumé PDF
+│   └── files/          Resume PDF
 └── src/
     ├── app/             layout (mode script, fonts, metadata), page, OG image, sitemap
     ├── components/
@@ -278,7 +278,7 @@ Every push to `main` redeploys automatically, and other branches get preview URL
 
 All text lives in [`src/content/`](src/content), not in the components:
 
-- [`site.ts`](src/content/site.ts): name, role, email, about text, socials, résumé path, Formspree endpoint
+- [`site.ts`](src/content/site.ts): name, role, email, about text, socials,Resume path, Formspree endpoint
 - [`projects.ts`](src/content/projects.ts): featured projects and the archive
 - [`skills.ts`](src/content/skills.ts): the capabilities lists
 - [`journey.ts`](src/content/journey.ts): the About timeline

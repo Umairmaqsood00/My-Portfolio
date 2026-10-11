@@ -221,7 +221,7 @@ export function Stage() {
                   Get in touch
                 </a>
                 <a href={site.resume} download data-hero-reveal className="inline-flex items-center rounded-full px-4 py-3.5 text-sm text-paper-dim underline-offset-4 transition-colors hover:text-paper hover:underline">
-                  Résumé (PDF)
+                 Resume (PDF)
                 </a>
               </div>
             </div>

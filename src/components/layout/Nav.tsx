@@ -95,7 +95,7 @@ export function Nav() {
             download
             className="hidden rounded-full border border-line-strong px-4 py-2 text-sm transition-colors hover:border-volt hover:text-volt md:inline-flex"
           >
-            Résumé ↓
+           Resume ↓
           </a>
           {/* Phones are always 2D (see the root layout): no mode switch, and no
               sound, since the score belongs to the 3D dive. */}
@@ -137,7 +137,7 @@ export function Nav() {
             </a>
           ))}
           <a href={site.resume} download className="text-volt">
-            Résumé ↓
+           Resume ↓
           </a>
         </div>
       </div>
