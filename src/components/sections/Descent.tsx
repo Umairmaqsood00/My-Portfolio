@@ -163,7 +163,7 @@ export function Descent() {
       <div className="sticky top-0 h-svh overflow-hidden bg-[#020203] still:relative">
         {/* 3D — or, in 2D mode / without WebGL, a still orb (server-rendered, so no pop-in) */}
         <div data-canvas className="pointer-events-none invisible absolute inset-0 z-0 still:visible">
-          <OrbStill className={webgl === false ? "grid" : "hidden still:grid"} />
+          <OrbStill className={webgl === false ? "flex" : "hidden still:flex"} />
           {webgl === true && !still && (
             <DescentCanvas state={state} active={active} low={low} onReady={() => setReady(true)} onError={() => setFailed(true)} />
           )}
@@ -315,16 +315,18 @@ const DUST = Array.from({ length: 20 }, (_, i) => {
  */
 function OrbStill({ className }: { className: string }) {
   return (
-    // The solid backdrop gives the screen blend something to blend with.
-    <div className={`absolute inset-0 place-items-center overflow-hidden bg-[#020203] md:pt-[10svh] ${className}`}>
-      <div className="relative aspect-square w-[min(108vw,30rem)] md:w-[min(56vw,36rem)]">
+    // The solid backdrop gives the screen blend something to blend with. Flex,
+    // not grid: on phones the orb is wider than the screen, and a grid track
+    // would grow to fit it and push all the overflow to the right.
+    <div className={`absolute inset-0 items-center justify-center overflow-hidden bg-[#020203] md:pt-[10svh] ${className}`}>
+      <div className="relative aspect-square w-[min(108vw,30rem)] shrink-0 md:w-[min(56vw,36rem)]">
         <div
           aria-hidden
           data-ambient="aura"
-          className="absolute inset-[22%] rounded-full bg-[radial-gradient(circle,rgb(150_128_255/0.4),rgb(118_96_230/0.12)_45%,transparent_70%)] blur-2xl"
+          className="absolute inset-[22%] rounded-full bg-[radial-gradient(circle,rgb(150_128_255/0.14),rgb(118_96_230/0.04)_45%,transparent_65%)] blur-2xl"
         />
         <div data-ambient="float" className="absolute inset-0">
-          <Image src="/images/orb-planet.webp" alt="" width={900} height={900} priority className="size-full mix-blend-screen" />
+          <Image src="/images/orb-planet.webp" alt="" width={900} height={900} priority className="size-full mix-blend-screen contrast-[1.15]" />
         </div>
         {DUST.map((d, i) => (
           <span
