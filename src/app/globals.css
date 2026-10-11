@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+/* 2D display mode (lib/motion.ts): `.still` on <html>, resolved before paint. */
+@custom-variant still (&:where(.still, .still *));
+
+/* ───────────────────────── Design tokens ───────────────────────── */
+:root {
+  --ink: #090a09;
+  --ink-2: #0f110f;
+  --ink-3: #161916;
+  --line: rgb(236 236 228 / 0.09);
+  --line-strong: rgb(236 236 228 / 0.18);
+  --paper: #ecece4;
+  --paper-dim: #a3a59c;
+  --paper-mute: #6c6f67;
+  --volt: #b4ff39;
+  --volt-dim: #7fb52a;
+  --volt-ink: #0b1400;
+  --gutter: clamp(1rem, 4vw, 3.5rem);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-paper: var(--paper);
+  --color-paper-dim: var(--paper-dim);
+  --color-paper-mute: var(--paper-mute);
+  --color-volt: var(--volt);
+  --color-volt-dim: var(--volt-dim);
+  --color-volt-ink: var(--volt-ink);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --ease-out-expo: var(--ease-out);
+}
+
+/* ───────────────────────── Base ───────────────────────── */
+html {
+  background: var(--ink);
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--volt);
+  color: var(--volt-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--volt);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* ───────────────────────── Primitives ───────────────────────── */
+@utility gutter {
+  padding-inline: var(--gutter);
+}
+
+@utility display {
+  font-weight: 560;
+  letter-spacing: -0.045em;
+  line-height: 0.88;
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper-mute);
+}
+
+/* SplitText masks: leave room for descenders under tight display leading */
+.split-line-mask,
+.split-char-mask {
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+/* Fine film grain over the whole page — static, so it costs nothing per frame */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Elements that GSAP reveals start hidden only once JS is confirmed running
+   (3D mode), so content never disappears for no-JS visitors or in 2D. */
+.js-motion [data-reveal],
+.js-motion [data-hero-reveal],
+.js-motion [data-hero-name],
+.js-motion [data-hero-intro],
+.js-motion [data-nav] {
+  visibility: hidden;
+}
+
+@keyframes cue {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+@keyframes eq {
+  0% { transform: scaleY(0.2); }
+  100% { transform: scaleY(var(--h, 1)); }
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* Phones are always 2D, but the hero orb keeps a little life: a slow float,
+   a breathing glow and twinkling dust. Beats the 2D rule below on specificity,
+   and still stays put for anyone who asks for reduced motion. */
+@keyframes orb-float {
+  0%, 100% { transform: translateY(-6px); }
+  50% { transform: translateY(6px); }
+}
+
+@keyframes aura {
+  0%, 100% { opacity: 0.65; transform: scale(0.94); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.12; transform: scale(0.6); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .phone [data-ambient="float"] { animation: orb-float 6s ease-in-out infinite !important; }
+  .phone [data-ambient="aura"] { animation: aura 5s ease-in-out infinite !important; }
+  .phone [data-ambient="twinkle"] {
+    animation: twinkle 3.2s ease-in-out infinite !important;
+    animation-delay: var(--d) !important;
+  }
+}
+
+/* 2D mode: nothing moves. `transition: none` rather than a tiny duration — every
+   element defaults to `transition-property: all`, so a near-zero duration would
+   turn each style change into a transition that scripts can catch mid-flight. */
+.still *,
+.still *::before,
+.still *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
